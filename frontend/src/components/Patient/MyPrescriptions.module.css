@@ -1,0 +1,249 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: #f1f5f9;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+.header {
+  margin-bottom: 3rem;
+  text-align: center;
+  border-bottom: none; /* Removed old border */
+  padding-bottom: 0; /* Removed old padding */
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #475569;
+}
+
+.header h1 {
+  color: #0f172a; /* Updated color */
+  font-size: 2.2rem; /* Updated font size */
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Added justify-content */
+  gap: 0.75rem;
+  margin-bottom: 0.5rem; /* Added margin-bottom */
+}
+
+.header p {
+    color: #64748b;
+}
+
+.prescriptionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Updated minmax */
+  gap: 2rem; /* Updated gap */
+}
+
+.prescriptionCard {
+  background: #fff; /* Updated background */
+  border: none; /* Removed old border */
+  border-radius: 16px; /* Updated border-radius */
+  padding: 0; /* Removed old padding */
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); /* Updated box-shadow */
+  transition: none; /* Removed old transition */
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Removed old gap */
+  border-left: 6px solid #3b82f6; /* Added new border */
+}
+
+.prescriptionCard:hover {
+  transform: none; /* Removed old transform */
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); /* Reset box-shadow to default */
+  border-color: none; /* Removed old border-color */
+}
+
+/* New card header */
+.cardHeader {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Renamed doctorInfo to docInfo and updated styles */
+.docInfo {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.icon {
+    color: #3b82f6;
+    font-size: 1.5rem;
+}
+
+.docInfo h4 {
+  color: #0f172a; /* Updated color */
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.docInfo span {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Renamed date to dateInfo and updated styles */
+.dateInfo {
+  color: #64748b; /* Updated color */
+  font-size: 0.85rem;
+  background: #f8fafc;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* New card body */
+.cardBody {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+/* Renamed medSection/instructSection to section and updated styles */
+.section {
+  display: flex; /* Kept display flex */
+  flex-direction: column; /* Kept flex-direction */
+  gap: 0.5rem; /* Kept gap */
+  margin-bottom: 1.5rem; /* Added margin-bottom */
+}
+
+.section h5 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #475569;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Renamed sectionLabel to section h5 (implicitly) */
+/* Renamed content to medList/textBlock */
+
+.medList {
+    list-style: none;
+    padding: 0;
+}
+
+.medList li {
+    background: #f8fafc;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.medList strong {
+    color: #1e293b;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.medList p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.textBlock {
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    padding: 0.75rem;
+    border-radius: 8px;
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.actions {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* New card footer */
+.cardFooter {
+    padding: 1.25rem;
+    background: #f8fafc;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.downloadBtn {
+  width: 100%; /* Added width */
+  padding: 0.8rem; /* Updated padding */
+  background: #fff; /* Updated background */
+  border: 1px solid #3b82f6; /* Updated border */
+  color: #3b82f6; /* Updated color */
+  border-radius: 8px; /* Updated border-radius */
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Added justify-content */
+  gap: 0.5rem;
+  transition: all 0.2s; /* Updated transition */
+}
+
+.downloadBtn:hover {
+  background-color: #3b82f6; /* Updated background-color */
+  color: #fff; /* Updated color */
+}
+
+.emptyState {
+  text-align: center;
+  padding: 5rem; /* Updated padding */
+  color: #64748b; /* Updated color */
+  background: #fff; /* Updated background */
+  border-radius: 20px; /* Updated border-radius */
+  border: 2px dashed #cbd5e1; /* Updated border */
+}
+
+.emptyState h3 {
+    margin-top: 1.5rem;
+    color: #1e293b;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .prescriptionGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,65 @@
+.contactCard {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contactCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: #eaf3ff;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.icon {
+  font-size: 1.8rem;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+/* Specific icon colors */
+.emergency .icon { color: #dc3545; }
+.location .icon { color: #28a745; }
+.email .icon { color: #ffc107; }
+.hours .icon { color: #17a2b8; }
+
+.cardTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1f2b6c;
+  margin-bottom: 0.5rem;
+}
+
+.cardText {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #6c757d;
+  margin: 0.2rem 0;
+}
+
+.cardText a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.cardText a:hover {
+  text-decoration: underline;
+}

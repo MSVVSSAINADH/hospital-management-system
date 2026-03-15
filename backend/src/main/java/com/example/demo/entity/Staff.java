@@ -1,0 +1,62 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "staff")
+public class Staff {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String role;
+    private String department;
+    private String mobile;
+    private String email;
+    private boolean workToday;
+    private boolean deleted = false;   // Soft delete flag
+    private LocalDate dateAdded = LocalDate.now();
+
+    // Constructors
+    public Staff() {}
+
+    public Staff(String name, String role, String department, String mobile, String email, boolean workToday) {
+        this.name = name;
+        this.role = role;
+        this.department = department;
+        this.mobile = mobile;
+        this.email = email;
+        this.workToday = workToday;
+    }
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+
+    public String getMobile() { return mobile; }
+    public void setMobile(String mobile) { this.mobile = mobile; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public boolean isWorkToday() { return workToday; }
+    public void setWorkToday(boolean workToday) { this.workToday = workToday; }
+
+    public boolean isDeleted() { return deleted; }
+    public void setDeleted(boolean deleted) { this.deleted = deleted; }
+
+    public LocalDate getDateAdded() { return dateAdded; }
+    public void setDateAdded(LocalDate dateAdded) { this.dateAdded = dateAdded; }
+}

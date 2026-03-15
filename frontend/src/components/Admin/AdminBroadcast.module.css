@@ -1,0 +1,187 @@
+.container {
+  padding: 2.5rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0d47a1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header p {
+  color: #64748b;
+  margin-top: 0.5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.formPanel {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.formPanel h2 {
+  margin-bottom: 2rem;
+  color: #1e293b;
+  font-size: 1.25rem;
+}
+
+.fg {
+  margin-bottom: 1.5rem;
+}
+
+.fg label {
+  display: block;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.fg input, .fg select, .fg textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #f1f5f9;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: #0d47a1;
+  background: white;
+  outline: none;
+}
+
+.fg textarea {
+  min-height: 150px;
+}
+
+.formPanel button {
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: none;
+  background: #0d47a1;
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 0.2s;
+}
+
+.formPanel button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.historyPanel h2 {
+  margin-bottom: 2rem;
+  color: #1e293b;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.annList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.annCard {
+  padding: 1.5rem;
+  border-radius: 16px;
+  border-left: 6px solid #94a3b8;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 1.25rem;
+}
+
+.warning { border-color: #fbbf24; background: #fffbeb !important; }
+.emergency { border-color: #ef4444; background: #fef2f2 !important; }
+.info { border-color: #0ea5e9; background: #f0f9ff !important; }
+
+.annHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.annHeader div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.annHeader button {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.annHeader button:hover { color: #dc2626; }
+
+.annCard p {
+  line-height: 1.6;
+  color: #334155;
+  margin-bottom: 1rem;
+}
+
+.annDate {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.activeBadge {
+  background: #def7ec;
+  color: #03543f;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin-left: 0.75rem;
+}
+
+.inactiveBadge {
+  background: #fde8e8;
+  color: #9b1c1c;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin-left: 0.75rem;
+}
+.empty { text-align: center; padding: 3rem; color: #94a3b8; border: 2px dashed #e2e8f0; border-radius: 16px; }
+
+.spinner { animation: rotate 1s linear infinite; }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: 1fr; }
+}

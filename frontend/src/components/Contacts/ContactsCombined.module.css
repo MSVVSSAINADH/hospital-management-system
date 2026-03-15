@@ -1,0 +1,35 @@
+.contactPage {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.pageTitle {
+  font-family: 'Yeseva One', sans-serif;
+  font-size: 3rem;
+  color: #1f2b6c;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.pageSubtitle {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.2rem;
+  color: #6c757d;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

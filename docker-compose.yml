@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Database Service (Standard MySQL)
+  db:
+    image: mysql:8.0
+    container_name: hms-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: hms_db  # Check your application.properties for the real DB name
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3308:3306"
+    networks:
+      - hms-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: hms-backend
+    restart: always
+    depends_on:
+      - db
+    ports:
+      # HOST:5101 -> CONTAINER:9090 (As requested)
+      - "5101:9090"
+    networks:
+      - hms-net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: hms-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      # HOST:5100 -> CONTAINER:80 (Nginx default)
+      - "5100:80"
+    networks:
+      - hms-net
+
+networks:
+  hms-net:
+    driver: bridge

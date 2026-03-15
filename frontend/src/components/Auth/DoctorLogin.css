@@ -1,0 +1,207 @@
+/* 
+  DoctorLogin.css - Premium Glassmorphic Design 
+  Reusing and extending the design language of the HMS Project.
+*/
+
+.doctor-login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Decorative Background Blobs */
+  .bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    opacity: 0.6;
+    animation: pulse 10s infinite alternate;
+  }
+  
+  .blob-1 {
+    width: 400px;
+    height: 400px;
+    background: #e0e7ff;
+    top: -100px;
+    right: -100px;
+  }
+  
+  .blob-2 {
+    width: 350px;
+    height: 350px;
+    background: #f0fdfa;
+    bottom: -50px;
+    left: -50px;
+    animation-delay: 2s;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(20px, 20px); }
+  }
+  
+  .login-box {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    position: relative;
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  
+  .doctor-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+  }
+  
+  .login-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+  }
+  
+  .login-header p {
+    color: #64748b;
+    font-size: 0.925rem;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .input-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #475569;
+    margin-left: 4px;
+  }
+  
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    color: #94a3b8;
+    pointer-events: none;
+    transition: color 0.3s ease;
+  }
+  
+  .input-wrapper input {
+    width: 100%;
+    padding: 12px 16px 12px 48px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1e293b;
+    transition: all 0.3s ease;
+  }
+  
+  .input-wrapper input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  }
+  
+  .input-wrapper input:focus + .input-icon {
+    color: #6366f1;
+  }
+  
+  .login-button {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+  }
+  
+  .login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(99, 102, 241, 0.3);
+  }
+  
+  .login-button:active {
+    transform: translateY(0);
+  }
+  
+  .inactive-alert {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #e11d48;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  
+  .back-to-portal {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+  
+  .back-to-portal a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  .back-to-portal a:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+  }

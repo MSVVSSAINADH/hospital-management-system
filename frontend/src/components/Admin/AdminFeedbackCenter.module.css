@@ -1,0 +1,322 @@
+.container {
+  padding: 2.5rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0d47a1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.scoreCard {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.bigNum {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #1e293b;
+  line-height: 1;
+  margin: 1rem 0;
+}
+
+.stars {
+  color: #fbbf24;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.scoreCard span {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.fbCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.fbHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.docInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.quote {
+  position: relative;
+  padding-left: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #334155;
+  margin-bottom: 1.5rem;
+}
+
+.quoteIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #e2e8f0;
+  font-size: 1.5rem;
+}
+
+.fbFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #64748b;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1rem;
+}
+
+.footerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statusBadge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+
+.fbCard.status_pending { border-left: 4px solid #f59e0b; }
+.statusBadge.status_pending { background: #fef3c7; color: #92400e; }
+
+.fbCard.status_verified { border-left: 4px solid #10b981; }
+.statusBadge.status_verified { background: #d1fae5; color: #065f46; }
+
+.fbCard.status_resolved { border-left: 4px solid #3b82f6; }
+.statusBadge.status_resolved { background: #dbeafe; color: #1e40af; }
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions button {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid #e2e8f0;
+  background: white;
+}
+
+.verifyBtn:hover { background: #10b981 !important; color: white; border-color: #10b981; }
+.respondBtn:hover { background: #3b82f6 !important; color: white; border-color: #3b82f6; }
+.resolveBtn:hover { background: #64748b !important; color: white; border-color: #64748b; }
+
+.adminResponse {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px dashed #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.adminResponse strong {
+  color: #1e293b;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.responseForm {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+
+.responseForm textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  margin-bottom: 0.75rem;
+  font-family: inherit;
+}
+
+.responseBtns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.saveBtn {
+  background: #0d47a1;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  background: #e2e8f0;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+}
+
+.verified {
+  color: #10b981;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.loading { text-align: center; padding: 5rem; color: #64748b; }
+.empty { text-align: center; padding: 5rem; color: #94a3b8; background: #f8fafc; border-radius: 20px; }
+
+
+.controls {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filterGroup label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.deptSelect {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  font-family: inherit;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.deptStatCard {
+  background: #f8fafc;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+}
+
+.deptStatCard:hover {
+  border-color: #0d47a1;
+  background: white;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.deptStatCard h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.deptScore {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0d47a1;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.deptScore small {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.deptBadge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.docName {
+  display: flex;
+  flex-direction: column;
+}
+
+.docName small {
+  font-size: 0.7rem;
+  color: #0d47a1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  .content { grid-template-columns: 1fr; }
+  .fbFooter { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .controls { flex-direction: column; gap: 1rem; align-items: stretch; }
+}

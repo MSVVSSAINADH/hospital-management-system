@@ -1,0 +1,224 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.logo a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo a:hover {
+  opacity: 0.9;
+}
+
+.navbarNav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbarNav li {
+  position: relative;
+}
+
+.navbarNav a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+  padding: 0.5rem 0;
+}
+
+.navbarNav a.active,
+.navbarNav a:hover {
+  color: var(--primary-color);
+}
+
+.icon {
+  font-size: 1.1rem;
+}
+
+/* Buttons inside Nav */
+.navButton, .loginButton {
+  background-color: var(--primary-color);
+  color: #fff !important;
+  padding: 0.6rem 1.25rem !important;
+  border-radius: var(--radius-xl); /* Pill shape */
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.navButton:hover, .loginButton:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.logoutButton {
+  background-color: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-xl);
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* User Profile Dropdown */
+.userMenu {
+  position: relative;
+}
+
+.userIconBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.userIconBtn:hover {
+  color: var(--primary-color);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  animation: slideDown 0.2s ease forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdownItem:hover {
+  background-color: var(--bg-main);
+  color: var(--primary-color);
+}
+
+.dropdownItem:last-child {
+  color: var(--danger);
+}
+
+.dropdownItem:last-child:hover {
+  background-color: rgba(239, 68, 68, 0.05);
+  color: var(--danger);
+}
+
+.dropdownIcon {
+  font-size: 1rem;
+}
+
+/* Mobile Hamburger Menu */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navbarNav {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 1.5rem;
+    background: var(--bg-surface);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-lg);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path 0.3s ease-in-out;
+  }
+
+  .navbarNav.open {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .navbarNav li {
+    width: 100%;
+  }
+
+  .dropdownMenu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: var(--bg-main);
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    animation: none;
+  }
+}

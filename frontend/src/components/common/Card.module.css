@@ -1,0 +1,16 @@
+/* Reusable Card Style */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  /* Subtle, modern shadow for depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  overflow: hidden;
+  height: 100%; /* Ensures metric cards are the same height */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}

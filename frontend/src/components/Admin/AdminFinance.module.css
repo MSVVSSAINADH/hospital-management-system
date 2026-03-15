@@ -1,0 +1,148 @@
+.container {
+  padding: 2.5rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0d47a1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.statCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.statHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.iconBox {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.iconBox.blue { background: #e0f2fe; color: #0369a1; }
+.iconBox.teal { background: #f0fdf4; color: #15803d; }
+.iconBox.orange { background: #fff7ed; color: #c2410c; }
+
+.trend {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #15803d;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.statValue {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  color: #64748b;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.chartSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.dummyChartCard {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.dummyChart {
+  height: 300px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.bar {
+  flex: 1;
+  background: #0d47a1;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.bar:hover {
+  background: #00897b;
+}
+
+.bar span {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.revenueList {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.incomeItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.incomeItem span { color: #64748b; font-weight: 600; }
+.incomeItem strong { color: #1e293b; }
+
+.disclaimer {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.loading { text-align: center; padding: 5rem; color: #64748b; }
+
+@media (max-width: 1000px) {
+  .chartSection { grid-template-columns: 1fr; }
+}
