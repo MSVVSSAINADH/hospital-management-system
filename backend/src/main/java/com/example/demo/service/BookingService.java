@@ -29,7 +29,7 @@ public class BookingService {
         com.example.demo.entity.Doctor doctor = doctorRepository.findById(booking.getDoctorId())
                 .orElseThrow(() -> new RuntimeException("Doctor not found."));
         
-        if (!"ACTIVE".equalsIgnoreCase(doctor.getStatus()) || Boolean.TRUE.equals(doctor.getDeleted())) {
+        if (doctor.getStatus() != com.example.demo.entity.Doctor.Status.ACTIVE || doctor.isDeleted()) {
             throw new RuntimeException("This doctor is currently unavailable or no longer active.");
         }
 

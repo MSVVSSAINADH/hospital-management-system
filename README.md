@@ -1,5 +1,7 @@
 # KL Hospitals Management System (HMS)
 
+![Admin Dashboard](docs/screenshots/admin-dashboard.png)
+
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-3.1-green)
 ![React](https://img.shields.io/badge/React-19-blue)
@@ -415,13 +417,45 @@ Analytics dashboard for hospital performance.
 
 # Screenshots
 
-Add screenshots here.
+## Home Page
+The modern and responsive landing page of the hospital management system.
 
-```
-docs/patient-dashboard.png
-docs/doctor-dashboard.png
-docs/admin-panel.png
-```
+![Home Page](docs/screenshots/home-page.png)
+
+## Login Page
+Secure, role-based login portal for Admins, Doctors, and Patients.
+
+![Login](docs/screenshots/login-page.png)
+
+## Patient Dashboard
+Patients can manage appointments, medical history, and notifications.
+
+![Patient Dashboard](docs/screenshots/patient-dashboard.png)
+
+## Appointment Booking
+Real-time appointment scheduling with conflict prevention logic.
+
+![Appointment Booking](docs/screenshots/appointment-booking.png)
+
+## Doctor Dashboard
+Doctors can manage their patient queue, schedule, and consultations.
+
+![Doctor Dashboard](docs/screenshots/doctor-dashboard.png)
+
+## Medical Records
+Centralized electronic health records (EHR) and prescriptions management.
+
+![Medical Records](docs/screenshots/medical-records.png)
+
+## Admin Dashboard
+Complete administrative control over staff, resources, and finances.
+
+![Admin Dashboard](docs/screenshots/admin-dashboard.png)
+
+## Analytics Dashboard
+Visual breakdown of hospital performance, patient feedback, and system usage.
+
+![Analytics Dashboard](docs/screenshots/analytics-dashboard.png)
 
 ---
 
