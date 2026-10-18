@@ -1,531 +1,311 @@
-# KL Hospitals Management System (HMS)
+# KL Hospitals Management System
+
+A full-stack hospital management application built with **React**, **Spring Boot**, **Spring Security**, **JWT**, and **MySQL**. It brings patient, doctor, and administrator workflows into one web application.
 
 ![Admin Dashboard](docs/screenshots/admin-dashboard.png)
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
-![Spring Boot](https://img.shields.io/badge/SpringBoot-3.1-green)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green)
 ![React](https://img.shields.io/badge/React-19-blue)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![MySQL](https://img.shields.io/badge/MySQL-8.x-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-KL Hospitals Management System (HMS) is a **full-stack enterprise-grade healthcare management platform** designed to streamline hospital operations, enhance patient care, and provide doctors with advanced clinical management tools.
+## Contents
 
-It integrates **patient management, doctor workflows, and administrative control** into a unified digital healthcare ecosystem.
+- [Overview](#overview)
+- [Features](#features)
+- [User Roles](#user-roles)
+- [Workflows](#workflows)
+- [Technology Stack](#technology-stack)
+- [Architecture](#architecture)
+- [Security](#security)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Local Setup](#local-setup)
+- [Environment Configuration](#environment-configuration)
+- [Running the Application](#running-the-application)
+- [API and Authentication](#api-and-authentication)
+- [Screenshots](#screenshots)
+- [Current Limitations](#current-limitations)
+- [Future Improvements](#future-improvements)
+- [Contributing](#contributing)
+- [License](#license)
+- [Author](#author)
 
----
+## Overview
 
-# Table of Contents
+Hospital workflows often depend on fragmented software or manual processes. This project puts patients, doctors, and administrators on a single platform so that appointments, prescriptions, and feedback are handled in one place.
 
-* Project Overview
-* Key Features
-* User Roles
-* System Workflow
-* System Architecture
-* Security Architecture
-* Technology Stack
-* Project Structure
-* Installation & Setup
-* Environment Variables
-* Usage
-* API Endpoints
-* Implementation Details
-* Database Schema
-* Security Best Practices
-* Performance & Scalability
-* UI Overview
-* Screenshots
-* Limitations
-* Future Improvements
-* Learning Outcomes
-* Deployment
-* Contributing
-* License
-* Author
+**Problems it addresses**
 
----
+- Appointment scheduling conflicts (double bookings)
+- Paper-based prescription handling
+- Unauthorized access to patient data
+- Limited visibility into hospital workflow for administrators
 
-# Project Overview
+## Features
 
-Modern healthcare systems require seamless coordination between **patients, clinicians, and administrators**. Traditional hospital workflows often rely on fragmented software or manual processes.
+- **Authentication:** user registration and login endpoints, with JWT-based request authentication.
+- **Role-based access control:** Spring Security rules for administrator, doctor, and patient workflows.
+- **Doctor management:** doctor-related API routes with access restrictions.
+- **Appointments and bookings:** booking and availability endpoints, with conflict checking so a slot cannot be booked twice.
+- **Prescriptions:** prescription-related API routes.
+- **Feedback:** feedback submission endpoints.
+- **Frontend/backend separation:** React frontend communicating with the Spring Boot backend over REST.
 
-This project introduces a **centralized digital ecosystem** that improves operational efficiency while maintaining high security standards.
+## User Roles
 
-### Problem Solved
+| Role | Responsibilities |
+|---|---|
+| Admin | Manage doctors, departments, and hospital staff; review feedback |
+| Doctor | Manage appointments, conduct consultations, issue prescriptions |
+| Patient | Register, book appointments, view personal history and prescriptions |
 
-* Reduces patient wait times
-* Prevents appointment scheduling conflicts
-* Secures sensitive medical data
-* Eliminates paper-based prescription errors
-* Improves hospital workflow transparency
+Access to each route is enforced by Spring Security. See `SecurityConfig` for the exact rules.
 
-### Purpose
+## Workflows
 
-To create a **Single Source of Truth for medical records** while ensuring **high availability, scalability, and security**.
+### Appointment booking
 
-### Real-World Use Cases
+1. The patient searches for a doctor.
+2. The system checks the doctor's available slots.
+3. The patient selects a slot and confirms the booking.
+4. The appointment appears in the doctor's dashboard.
 
-* Multi-specialty hospitals
-* Private clinics
-* Government healthcare facilities
-* Medical institutions managing large patient volumes
+### Consultation
 
----
+1. The doctor opens the appointment.
+2. The doctor records the consultation and issues a prescription.
+3. The patient can view the prescription and submit feedback.
 
-# Key Features
+### Conflict prevention
 
-## Functional Features
+Before confirming a booking, the booking service checks for conflicting slots so that the same doctor and time cannot be booked twice.
 
-* **Live Patient Queue**
-  Doctors manage real-time patient queues.
+## Technology Stack
 
-* **Appointment Lifecycle Management**
-  Booking, confirmation, consultation, and cancellation workflow.
+| Layer | Technologies |
+|---|---|
+| Frontend | React, Vite, Axios, React Router |
+| Backend | Java 17, Spring Boot, Spring Security, Spring Data JPA |
+| Authentication | JWT request filter, BCrypt password encoder |
+| Database | MySQL |
+| Build | Maven Wrapper, npm |
 
-* **Electronic Health Records (EHR)**
-  Secure storage of patient medical history and prescriptions.
+## Architecture
 
-* **Smart Feedback Hub**
-  Sentiment analysis and department performance metrics.
-
-* **Personnel Management**
-  Admin tools to manage hospital staff.
-
----
-
-## Technical & Security Features
-
-* **JWT-Based Authentication**
-* **Role-Based Access Control (RBAC)**
-* **IDOR Protection**
-* **Automated Queue Notifications**
-* **Responsive Glassmorphic UI**
-
----
-
-# User Roles and Responsibilities
-
-| Role    | Responsibilities                       | Data Access           | Restrictions                  |
-| ------- | -------------------------------------- | --------------------- | ----------------------------- |
-| Admin   | System configuration, staff management | Administrative data   | Cannot edit medical records   |
-| Doctor  | Consultations and prescriptions        | Assigned patient data | Cannot modify system settings |
-| Patient | Appointment booking and history        | Personal records      | Cannot access other users     |
-
----
-
-# Role Interaction and System Workflow
-
-## Appointment Booking Workflow
-
-1. Patient searches doctor by specialization.
-2. System validates available slots.
-3. Patient selects slot and confirms booking.
-4. Appointment appears in doctor dashboard.
-
-## Consultation Workflow
-
-1. Doctor calls patient.
-2. Notification triggered.
-3. Doctor opens consultation interface.
-4. Prescription generated.
-5. Medical record updated.
-6. Patient submits feedback.
-
----
-
-# System Architecture
-
-```
-Patient / Doctor / Admin
-        |
-        v
-   React Frontend
-        |
-     REST APIs
-        |
-  Spring Boot Backend
-        |
- Spring Security (JWT + RBAC)
-        |
-        v
-     MySQL Database
+```text
+Browser
+   |
+   v
+React + Vite frontend
+   |
+   | HTTP / REST
+   v
+Spring Boot backend
+   |
+   +-- Spring Security / JWT
+   |
+   v
+MySQL database
 ```
 
-### Frontend
+## Security
 
-React + Vite SPA using Context API and Axios.
+- **JWT authentication:** a request filter validates the token on each request.
+- **Role-based authorization:** routes are restricted by role in the Spring Security configuration.
+- **Password hashing:** passwords are hashed with BCrypt.
+- **Secrets via environment variables:** database credentials and the JWT secret are not hardcoded. `.env` files are excluded by `.gitignore`.
+- **Data ownership checks:** requests for patient records, bookings, and prescriptions should be validated against the authenticated user, not only the role.
 
-### Backend
+## Project Structure
 
-Spring Boot service layer implementing business logic.
-
-### Database
-
-MySQL relational database with indexed tables.
-
----
-
-# Security Architecture
-
-Security is implemented using **defense-in-depth principles**.
-
-Layers:
-
-1. Authentication Layer (JWT)
-2. Authorization Layer (RBAC)
-3. Data Access Validation (IDOR checks)
-4. API Security Filters
-5. Secure Database Queries (JPA)
-
----
-
-# Technology Stack
-
-### Frontend
-
-* React 19
-* Vite
-* Axios
-* React Router
-* Lucide Icons
-* CSS Modules
-
-### Backend
-
-* Java 17
-* Spring Boot
-* Spring Security
-* Spring Data JPA
-* Lombok
-
-### Database
-
-MySQL Server 8+
-
-### DevOps
-
-* Docker
-* Docker Compose
-* Nginx
-
----
-
-# Project Structure
-
-```
-KL-HMS-PROJECT/
-
-backend/
-  config/
-  controller/
-  entity/
-  repository/
-  service/
-
-frontend/
-  components/
-  context/
-  pages/
-
-docker-compose.yml
+```text
+Hospital Management System/
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   └── test/
+│   ├── .env.example
+│   ├── mvnw
+│   └── run-backend.bat
+├── frontend/
+│   ├── src/
+│   └── package.json
+├── docs/
+│   └── screenshots/
+└── .gitignore
 ```
 
----
-
-# Installation and Setup
+Folder and file names may differ slightly as the project evolves.
 
 ## Prerequisites
 
-* Java 17+
-* Node.js 18+
-* MySQL 8+
+- **Java 17** (or the version configured by the backend build)
+- **Node.js and npm**
+- **MySQL 8.x**
+- Git
 
----
+## Local Setup
 
-## Clone Repository
+### 1. Clone the repository
 
-```
-git clone https://github.com/your-repo/kl-hms.git
-cd kl-hms
-```
+Replace `<repository-url>` with the URL of this repository.
 
----
-
-## Configure Database
-
-Create database
-
-```
-hms_db
+```bash
+git clone <repository-url>
+cd <repository-folder>
 ```
 
-Update credentials in
+### 2. Create the database
 
+```sql
+CREATE DATABASE hms_db;
 ```
-application.properties
+
+Use a different name if you prefer, and update the datasource URL to match.
+
+### 3. Configure backend environment variables
+
+The backend reads its database, JWT, and CORS settings from environment variables. Create a local `backend/.env` file based on `backend/.env.example` and replace the placeholders with your own values.
+
+```dotenv
+SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/hms_db
+SPRING_DATASOURCE_USERNAME=your_mysql_username
+SPRING_DATASOURCE_PASSWORD=your_mysql_password
+JWT_SECRET=replace_with_a_long_random_secret
+JWT_EXPIRATION=86400000
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:5100,http://localhost:5101
 ```
 
----
+**Never commit `.env` files, database passwords, or real JWT secrets.**
 
-## Run Backend
+### 4. Configure the frontend
 
+If the frontend uses `VITE_API_BASE_URL`, create `frontend/.env`:
+
+```dotenv
+VITE_API_BASE_URL=http://localhost:8086
 ```
+
+Vite exposes `VITE_`-prefixed variables to browser code, so never put secrets here.
+
+## Running the Application
+
+### Backend
+
+From the repository root, using the batch file (requires a configured `backend/.env`):
+
+```powershell
+.\backend\run-backend.bat
+```
+
+Or with the Maven Wrapper, after setting the environment variables in your shell:
+
+```powershell
 cd backend
-mvn spring-boot:run
+.\mvnw spring-boot:run
 ```
 
----
+The backend runs on port **8086**.
 
-## Run Frontend
+### Frontend
 
-```
+In a second terminal:
+
+```powershell
 cd frontend
 npm install
 npm run dev
 ```
 
----
+Open the URL printed by Vite, commonly `http://localhost:5173`.
 
-# Environment Variables
+## Environment Configuration
 
-Example backend environment configuration.
+| Variable | Purpose |
+|---|---|
+| `SPRING_DATASOURCE_URL` | JDBC URL for the MySQL database |
+| `SPRING_DATASOURCE_USERNAME` | MySQL username |
+| `SPRING_DATASOURCE_PASSWORD` | MySQL password |
+| `JWT_SECRET` | Secret used to sign and validate JWTs |
+| `JWT_EXPIRATION` | Token lifetime in milliseconds (`86400000` is 24 hours) |
+| `CORS_ALLOWED_ORIGINS` | Comma-separated list of allowed frontend origins |
+| `VITE_API_BASE_URL` | Frontend API base URL |
 
-```
-DB_URL=jdbc:mysql://localhost:3306/hms_db
-DB_USERNAME=root
-DB_PASSWORD=password
-JWT_SECRET=your-secret-key
-JWT_EXPIRATION=86400000
-```
+Use strong, unique values for secrets, and never reuse the example values in a deployed environment.
 
----
+## API and Authentication
 
-# Usage
+The backend exposes REST endpoints under `/api`:
 
-## Admin
+| Route | Purpose |
+|---|---|
+| `/api/users/register` | Patient registration |
+| `/api/users/login` | Patient login |
+| `/api/doctors/login` | Doctor login |
+| `/api/doctors/**` | Doctor-related operations |
+| `/api/bookings/**` | Appointment bookings |
+| `/api/availability/**` | Doctor availability |
+| `/api/prescriptions/**` | Prescriptions |
+| `/api/feedback/**` | Feedback |
 
-* Manage doctors
-* Manage departments
-* Monitor feedback analytics
+Access requirements vary by route and HTTP method. This list is illustrative, not a full API specification. See the backend controllers and `SecurityConfig` for the current contract.
 
-## Doctor
+## Screenshots
 
-* View patient queue
-* Conduct consultations
-* Issue prescriptions
-
-## Patient
-
-* Register account
-* Book appointments
-* View medical history
-
----
-
-# API Endpoints (Sample)
-
-| Method | Endpoint             | Description       |
-| ------ | -------------------- | ----------------- |
-| POST   | /api/auth/login      | Authenticate user |
-| POST   | /api/appointments    | Book appointment  |
-| GET    | /api/doctor/queue    | Doctor queue      |
-| GET    | /api/patient/history | Medical history   |
-| POST   | /api/feedback        | Submit feedback   |
-
----
-
-# Implementation Details
-
-### JWT Authentication
-
-Uses `OncePerRequestFilter` to validate tokens.
-
-### IDOR Protection
-
-Ownership validation prevents unauthorized access.
-
-```
-user.getId().equals(requestedUserId)
-```
-
-### Conflict Resolution Algorithm
-
-Booking service checks:
-
-* Admin blocked dates
-* Doctor blocked slots
-
-Ensures **no double bookings**.
-
----
-
-# Database Schema Overview
-
-Main entities include:
-
-* Users
-* Patients
-* Doctors
-* Appointments
-* Prescriptions
-* Feedback
-
-Relationships:
-
-* One Doctor → Many Appointments
-* One Patient → Many Medical Records
-* One Appointment → One Prescription
-
----
-
-# Security Best Practices
-
-* JWT secure authentication
-* RBAC authorization control
-* IDOR protection
-* Input validation
-* Secure password hashing
-* Stateless API sessions
-
----
-
-# Performance & Scalability
-
-System designed to scale with:
-
-* Stateless backend APIs
-* Database indexing
-* Containerized deployment
-* Horizontal scaling support
-
----
-
-# UI Overview
-
-### Clinical Dashboard
-
-Real-time patient queue view.
-
-### Health Portal
-
-Patient-centered medical dashboard.
-
-### Feedback Hub
-
-Analytics dashboard for hospital performance.
-
----
-
-# Screenshots
-
-## Home Page
-The modern and responsive landing page of the hospital management system.
-
+### Home Page
 ![Home Page](docs/screenshots/home-page.png)
 
-## Login Page
-Secure, role-based login portal for Admins, Doctors, and Patients.
+### Login Page
+![Login Page](docs/screenshots/login-page.png)
 
-![Login](docs/screenshots/login-page.png)
-
-## Patient Dashboard
-Patients can manage appointments, medical history, and notifications.
-
+### Patient Dashboard
 ![Patient Dashboard](docs/screenshots/patient-dashboard.png)
 
-## Appointment Booking
-Real-time appointment scheduling with conflict prevention logic.
-
+### Appointment Booking
 ![Appointment Booking](docs/screenshots/appointment-booking.png)
 
-## Doctor Dashboard
-Doctors can manage their patient queue, schedule, and consultations.
-
+### Doctor Dashboard
 ![Doctor Dashboard](docs/screenshots/doctor-dashboard.png)
 
-## Medical Records
-Centralized electronic health records (EHR) and prescriptions management.
-
+### Medical Records
 ![Medical Records](docs/screenshots/medical-records.png)
 
-## Admin Dashboard
-Complete administrative control over staff, resources, and finances.
-
+### Admin Dashboard
 ![Admin Dashboard](docs/screenshots/admin-dashboard.png)
 
-## Analytics Dashboard
-Visual breakdown of hospital performance, patient feedback, and system usage.
-
+### Analytics Dashboard
 ![Analytics Dashboard](docs/screenshots/analytics-dashboard.png)
 
----
+## Current Limitations
 
-# Limitations
+- No payment gateway integration.
+- No real-time chat or telemedicine.
+- File uploads are limited.
+- Production deployment configuration and monitoring need additional setup.
 
-* No real-time chat system
-* Payment gateway not integrated
-* File uploads limited
+## Future Improvements
 
----
+- Automated integration tests for authentication and role-based access.
+- OpenAPI/Swagger API documentation.
+- Docker-based deployment with a safe production configuration.
+- Audit logging, observability, and improved error handling.
+- Appointment reminders and smarter rescheduling.
+- Telemedicine, once implemented and tested.
 
-# Future Improvements
+## Contributing
 
-* AI-assisted diagnosis
-* Telemedicine (WebRTC)
-* Smart appointment rescheduling
-* Multilingual support
-* Predictive healthcare analytics
+1. Fork the repository.
+2. Create a feature branch.
+3. Make and test your changes.
+4. Commit with a clear message.
+5. Open a pull request describing the change.
 
----
+## License
 
-# Learning Outcomes
+Distributed under the MIT License. Make sure a matching `LICENSE` file exists in the repository.
 
-* Implemented secure authentication with JWT
-* Applied RBAC and IDOR protection
-* Built scalable React + Spring Boot architecture
-* Implemented containerized deployment with Docker
+## Author
 
----
-
-# Deployment
-
-Example production architecture:
-
-```
-User
- |
-Nginx Reverse Proxy
- |
-React Frontend
- |
-Spring Boot API
- |
-MySQL Database
-```
-
-Deployment can be performed using:
-
-* Docker containers
-* Nginx reverse proxy
-* Cloud hosting (AWS / Azure / GCP)
-
----
-
-# Contributing
-
-1. Fork repository
-2. Create feature branch
-3. Commit changes
-4. Push branch
-5. Open Pull Request
-
----
-
-# License
-
-Distributed under the **MIT License**.
-
----
-
-# Author
-
-Developed by **Macharla Sainadh**
+**Macharla Sainadh**
