@@ -276,7 +276,7 @@ Access requirements vary by route and HTTP method. This list is illustrative, no
 ![Admin Dashboard](docs/screenshots/admin-dashboard.png)
 
 ### Analytics Dashboard
-![Analytics Dashboard](docs/screenshots/analytics-dashboard.png)
+![Analytics Dashboard](docs/screenshots/feedback-analytics-dashboard.png)
 
 ## Current Limitations
 
@@ -301,10 +301,6 @@ Access requirements vary by route and HTTP method. This list is illustrative, no
 3. Make and test your changes.
 4. Commit with a clear message.
 5. Open a pull request describing the change.
-
-## License
-
-Distributed under the MIT License. Make sure a matching `LICENSE` file exists in the repository.
 
 ## Author
 
