@@ -29,7 +29,6 @@ A full-stack hospital management application built with **React**, **Spring Boot
 - [Current Limitations](#current-limitations)
 - [Future Improvements](#future-improvements)
 - [Contributing](#contributing)
-- [License](#license)
 - [Author](#author)
 
 ## Overview
