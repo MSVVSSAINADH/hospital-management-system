@@ -1,27 +1,33 @@
+
 package com.example.demo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.demo.filter.JwtRequestFilter;
 
 @Configuration
 @EnableWebSecurity
-@org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity // ✅ Enables @PreAuthorize
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Value("${app.cors.allowedOrigins}")
@@ -31,70 +37,100 @@ public class SecurityConfig {
     private JwtRequestFilter jwtRequestFilter;
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
     @Bean
-    public org.springframework.security.crypto.password.PasswordEncoder passwordEncoder() {
-        return new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
-            .csrf(csrf -> csrf.disable()) // Disable CSRF for testing
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // 1. CRITICAL: Allow "Pre-flight" OPTIONS checks from the browser
+
+                // Allow the root endpoint without authentication
+                .requestMatchers(HttpMethod.GET, "/").permitAll()
+
+                // Allow browser preflight requests
                 .requestMatchers(new AntPathRequestMatcher("/**", "OPTIONS")).permitAll()
-                
-                // 2. Allow Public Endpoints (Login/Register/Doctor Viewing)
-                .requestMatchers("/api/users/register", "/api/users/login", "/api/doctors/login").permitAll()
-                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/doctors", "/api/doctors/**").authenticated()
-                .requestMatchers("/api/doctors", "/api/doctors/**").hasRole("ADMIN") // Only Admin can POST/DELETE/PATCH doctors
+
+                // Public authentication endpoints
+                .requestMatchers(
+                    "/api/users/register",
+                    "/api/users/login",
+                    "/api/doctors/login"
+                ).permitAll()
+
+                // Doctor endpoints
+                .requestMatchers(HttpMethod.GET, "/api/doctors", "/api/doctors/**")
+                    .authenticated()
+                .requestMatchers("/api/doctors", "/api/doctors/**")
+                    .hasRole("ADMIN")
+
+                // Public API endpoints
                 .requestMatchers("/api/public/**").permitAll()
-                .requestMatchers("/api/availability/blocked", "/api/contact-messages", "/api/system-config").permitAll()
-                
-                // 3. Role-based access for specific modules
-                .requestMatchers("/api/users/all", "/api/users/all/**").hasRole("ADMIN")
-                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
-                .requestMatchers("/api/feedback", "/api/feedback/", "/api/feedback/**").authenticated()
-                .requestMatchers("/api/bookings/by-doctor/**").hasAnyRole("ADMIN", "DOCTOR", "USER")
-                .requestMatchers("/api/bookings/**").authenticated()
-                .requestMatchers("/api/doctor/dashboard/**").hasAnyRole("DOCTOR", "ADMIN")
-                .requestMatchers("/api/availability/**").hasAnyRole("DOCTOR", "ADMIN")
-                .requestMatchers("/api/prescriptions/**").authenticated()
-                
-                // 4. Fallback: everything else MUST be authenticated.
+                .requestMatchers(
+                    "/api/availability/blocked",
+                    "/api/contact-messages",
+                    "/api/system-config"
+                ).permitAll()
+
+                // Role-based access control
+                .requestMatchers("/api/users/all", "/api/users/all/**")
+                    .hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/users/**")
+                    .hasRole("ADMIN")
+                .requestMatchers("/api/feedback", "/api/feedback/", "/api/feedback/**")
+                    .authenticated()
+                .requestMatchers("/api/bookings/by-doctor/**")
+                    .hasAnyRole("ADMIN", "DOCTOR", "USER")
+                .requestMatchers("/api/bookings/**")
+                    .authenticated()
+                .requestMatchers("/api/doctor/dashboard/**")
+                    .hasAnyRole("DOCTOR", "ADMIN")
+                .requestMatchers("/api/availability/**")
+                    .hasAnyRole("DOCTOR", "ADMIN")
+                .requestMatchers("/api/prescriptions/**")
+                    .authenticated()
+
+                // All remaining requests require authentication
                 .anyRequest().authenticated()
             )
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            .sessionManagement(session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            );
 
-        // Add the JWT filter before standard authentication filter
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        
+        // Add JWT authentication filter
+        http.addFilterBefore(
+            jwtRequestFilter,
+            UsernamePasswordAuthenticationFilter.class
+        );
+
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        
-        // 1. Allow Frontend (Values injected from application.properties)
+
         configuration.setAllowedOrigins(Arrays.asList(allowedOrigins));
-        
-        // 2. Allow Methods
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")); // ✅ Added PATCH
-        
-        // 3. Allow All Headers (Simpler for troubleshooting)
+        configuration.setAllowedMethods(
+            Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+        );
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        
-        // 4. Allow Credentials
         configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+            new UrlBasedCorsConfigurationSource();
+
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 }
